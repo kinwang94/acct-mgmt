@@ -1,0 +1,136 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a account management server which can create an account and verify credential.",
+        "title": "Account Management",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "Kinwang",
+            "url": "https://github.com/kinwang94",
+            "email": "autumn4090@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
+    },
+    "paths": {
+        "/v1/login": {
+            "post": {
+                "description": "Verify the provided account credentials.\nIf verification failed more than five times, the user is required to wait one minute before attempting again.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "account"
+                ],
+                "summary": "Verify account credential",
+                "parameters": [
+                    {
+                        "description": "Account credential",
+                        "name": "account",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.RequestPayload"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponsePayload"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponsePayload"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/signup": {
+            "post": {
+                "description": "Create an account with the required username and password.\nThe username must meet the following criteria:\n- Minimum length of 3 characters and maximum length of 32 characters.\n\nThe password must meet the following criteria:\n- Minimum length of 8 characters and maximum length of 32 characters.\n- Must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "account"
+                ],
+                "summary": "Create an account",
+                "parameters": [
+                    {
+                        "description": "Account credential",
+                        "name": "account",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.RequestPayload"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponsePayload"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponsePayload"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "model.RequestPayload": {
+            "type": "object",
+            "required": [
+                "password",
+                "username"
+            ],
+            "properties": {
+                "username": {
+                    "type": "string",
+                    "x-order": "1"
+                },
+                "password": {
+                    "type": "string",
+                    "x-order": "2"
+                }
+            }
+        },
+        "model.ResponsePayload": {
+            "type": "object",
+            "required": [
+                "reason",
+                "success"
+            ],
+            "properties": {
+                "success": {
+                    "type": "boolean",
+                    "x-order": "1"
+                },
+                "reason": {
+                    "type": "string",
+                    "x-order": "2"
+                }
+            }
+        }
+    }
+}

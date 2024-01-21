@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  acct-mgmt:
+    container_name: acct-mgmt
+    image: kinwang94/acct-mgmt
+    ports:
+      - "8080:8080"
+    networks:
+      - web_service
+  
+  mongodb:
+    container_name: ${DB_HOST}
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${DB_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${DB_PASS}
+    restart: always
+    volumes:
+      - ./data:/data/db
+    networks:
+      - web_service
+
+networks:
+  web_service:
+    driver: bridge

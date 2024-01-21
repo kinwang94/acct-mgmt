@@ -1,0 +1,101 @@
+definitions:
+  model.RequestPayload:
+    properties:
+      password:
+        type: string
+        x-order: "2"
+      username:
+        type: string
+        x-order: "1"
+    required:
+    - password
+    - username
+    type: object
+  model.ResponsePayload:
+    properties:
+      reason:
+        type: string
+        x-order: "2"
+      success:
+        type: boolean
+        x-order: "1"
+    required:
+    - reason
+    - success
+    type: object
+info:
+  contact:
+    email: autumn4090@gmail.com
+    name: Kinwang
+    url: https://github.com/kinwang94
+  description: This is a account management server which can create an account and
+    verify credential.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Account Management
+  version: "1.0"
+paths:
+  /v1/login:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        Verify the provided account credentials.
+        If verification failed more than five times, the user is required to wait one minute before attempting again.
+      parameters:
+      - description: Account credential
+        in: body
+        name: account
+        required: true
+        schema:
+          $ref: '#/definitions/model.RequestPayload'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponsePayload'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponsePayload'
+      summary: Verify account credential
+      tags:
+      - account
+  /v1/signup:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        Create an account with the required username and password.
+        The username must meet the following criteria:
+        - Minimum length of 3 characters and maximum length of 32 characters.
+
+        The password must meet the following criteria:
+        - Minimum length of 8 characters and maximum length of 32 characters.
+        - Must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number.
+      parameters:
+      - description: Account credential
+        in: body
+        name: account
+        required: true
+        schema:
+          $ref: '#/definitions/model.RequestPayload'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.ResponsePayload'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponsePayload'
+      summary: Create an account
+      tags:
+      - account
+swagger: "2.0"
