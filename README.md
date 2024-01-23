@@ -34,7 +34,6 @@ The project is packaged as a Docker image and published in Docker Hub.
 ├── go.mod
 ├── go.sum
 ├── main.go
-├── main_test.go
 ├── Dockerfile
 ├── docker-compose.yml
 └── README.md
