@@ -61,7 +61,7 @@ func (a *API) CreateAccountHandler(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusCreated, model.ResponsePayload{
+	c.JSON(http.StatusCreated, &model.ResponsePayload{
 		Success: true,
 		Reason:  "",
 	})
