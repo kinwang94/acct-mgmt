@@ -29,6 +29,7 @@ The project is packaged as a Docker image and published in Docker Hub.
 │   └── account.go
 ├── utils
 │   ├── hash.go
+│   ├── random.go
 │   └── validation.go
 ├── .env
 ├── go.mod
